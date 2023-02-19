@@ -20,6 +20,11 @@
             height: 100vh;
         }
 
+        h1{
+            text-align: center;
+            font-family: sans-serif;
+        }
+
         .container {
             width: 50vw;
             height: 50vh;
@@ -73,6 +78,7 @@
 
 <body>
     <nav>
+        <h1>Welcome to Gossip Adda</h1>
         <!-- <img class="logo" src="logo.png" alt="chat logo"> -->
     </nav>
     <div class="container">
@@ -98,8 +104,7 @@
             messageElement.classList.add(position);
             messageContainer.append(messageElement);
         }
-        console.log(form);
-
+        
         form.addEventListener('submit', (e) => {
             e.preventDefault();
             const message = messageInput.value;
@@ -109,9 +114,7 @@
 
         })
 
-
-    const nam = prompt('Enter your name to join')
-    console.log(nam);
+     const nam = prompt('Enter your name to join')
     socket.emit('new-user-joined', nam);
     socket.on('user-joined', (name) => {
         append(`${name} joined the chat`, 'right');
@@ -121,7 +124,7 @@
         append(`${data.name}:${data.message}`, 'left');
     })
     socket.on('left', (name) => {
-        append(`${name} left the chat`, 'left');
+        append(`${name} left the chat`, 'right');
     })
         
 

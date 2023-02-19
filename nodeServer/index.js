@@ -16,10 +16,8 @@ app.get("/", (req, res) => {
 let users = {};
 
 io.on("connection", (socket) => {
-  console.log("a user connected");
   socket.on("new-user-joined", (Name) => {
     if(Name){
-      console.log("Received new-user-joined event with name:", Name);
       users[socket.id] = Name;
       socket.broadcast.emit("user-joined", Name);
     }
