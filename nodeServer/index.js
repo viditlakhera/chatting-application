@@ -18,15 +18,23 @@ let users = {};
 io.on("connection", (socket) => {
   console.log("a user connected");
   socket.on("new-user-joined", (Name) => {
-    console.log("Received new-user-joined event with name:", Name);
-    users[socket.id] = Name;
-    socket.broadcast.emit("user-joined", Name);
+    if(Name){
+      console.log("Received new-user-joined event with name:", Name);
+      users[socket.id] = Name;
+      socket.broadcast.emit("user-joined", Name);
+    }
   });
   socket.on("send", (message) => {
     socket.broadcast.emit("receive", {
       message: message,
       name: users[socket.id],
     });
+  });
+  socket.on("disconnect", (message) => {
+    socket.broadcast.emit("left",
+       users[socket.id]
+    );
+    delete users[socket.id];
   });
 });
 
