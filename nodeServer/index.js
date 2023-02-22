@@ -6,11 +6,14 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
 const path = require("path");
+let ejs = require('ejs');
+// app.set('view engine','ejs');
 
-app.use(express.static(__dirname));
+//built in midddleware
+app.use(express.static(path.join(__dirname,'../public')));
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../public/index.html"));
+  
 });
 
 let users = {};
